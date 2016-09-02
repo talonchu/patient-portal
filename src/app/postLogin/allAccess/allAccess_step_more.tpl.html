@@ -1,0 +1,44 @@
+<form action="" method="POST" role="form" name="allAccessForm">
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 default-content">
+			<div class="row">
+				<div class="col-xs-12">
+					<uib-alert ng-show="currentAlert !== undefiend" type="{{currentAlert.type}}"> <i
+						ng-class="ALERT_ICONS[currentAlert.type].class" ng-style="{color: ALERT_ICONS[currentAlert.type].color}"></i> <span
+						ng-bind-html="currentAlert.message"></span></uib-alert>
+				</div>
+			</div>
+			<h2 class="all-access-sub-header">Your Options</h2>
+			<hr class=" separator-hr" />
+			<div class="row">
+				<div class="col-sm-12 all-access-sub-header-font">
+					The following organizations are eligible to serve you based on who you are and where you live. Please
+            		continue by selecting an organization from the list.<span ng-show="(countPreRegistered) > 0"> You may also return to view Recommended Teams by
+            		clicking <a ui-sref="allAccess.step2">here</a>.</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-6 col-lg-6 all-access-card"
+					ng-repeat="customer in customerList  | filter:{preRegistered : 'false'}" id="customerSelect{{customer.customerId}}"
+					ng-click="setSelectedCustomer($event, customer)">
+					<div class="row">
+						<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+							<img ng-src="{{customer.customerLogoUrl}}" />
+						</div>
+						<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+							<div class="col-xs-12 all-access-sub-header">{{customer.customerName}}</div>
+							<div class="col-xs-12 all-access-sub-header">{{customer.customerCity}}, {{customer.customerState}}</div>
+							<div class="col-xs-12 all-access-sub-header">{{customer.customerUrl}}</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row all-access-row-margin">
+				<div class="col-sm-3 primary-button-area all-access-next-position">
+					<button type="button" class="btn secondary-button" id="nextBtn" ng-click="goNext()">Next</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

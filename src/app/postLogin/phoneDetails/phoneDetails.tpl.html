@@ -1,0 +1,71 @@
+<div class="col-md-3 col-sm-2"></div>
+
+<div class="col-md-6 col-sm-8 col-xs-12 default-content no-phone-details-container">
+    <div class="no-phone-details-header">Please provide a phone number</div>
+    <hr>
+    <p class="forgot-password-page-description container-align-center">Intellivisit may need to request a prescription
+        as part of your visit.
+        Please enter a phone number below where you can be reached by a pharmacist. We will never spam your
+        phone, nor will we share it with anyone.
+    </p>
+    <form name="phoneDetailsForm" novalidate ng-submit="savePhoneDetails()">
+
+        <div class="row no-phone-details-content">
+            <div class="col-md-5 col-sm-5 col-xs-8">
+                <select id="phoneType" name="phoneType" class="phone-details-text-control"
+                        ng-class="{'register-first-option': phoneType == undefined, 'ng-invalid': phoneDetailsForm.phoneType.$touched &&  phoneType == undefined}"
+                        ng-model="phoneType" validate-phone-type>
+                    <option value="" disabled selected>
+                        Select phone number type
+                    </option>
+                    <option class="register-valid-options" value="Home Phone">Home Phone</option>
+                    <option class="register-valid-options" value="Mobile Phone">Mobile Phone</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-8 error-container"
+                 ng-show="phoneDetailsForm.phoneType.$error.phoneTypeValidity || (phoneDetailsForm.phoneType.$touched && phoneType == undefined)">
+                {{PHONE_DETAILS_ERROR_MESSAGES.REQUIRED_PHONE_TYPE}}
+            </div>
+        </div>
+
+        <div class="row no-phone-details-content">
+            <div class="col-md-6 col-sm-6 col-xs-8">
+                <input type="text" class="form-control phone-details-text-control" id="mobilePhone"
+                       placeholder="{{phoneType}}"
+                       ng-model="mobilePhone"
+                       name="mobilePhone"
+                       ng-class="{'ng-invalid' : phoneDetailsForm.mobilePhone.$touched && phoneDetailsForm.mobilePhone.$error.phone}"
+                       required validate-phone/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-8 error-container"
+                 ng-show="phoneDetailsForm.mobilePhone.$touched && phoneDetailsForm.mobilePhone.$error.required">
+                {{PHONE_DETAILS_ERROR_MESSAGES.REQUIRED_PHONE_NUMBER}}
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-8 error-container"
+                 ng-show="phoneDetailsForm.mobilePhone.$touched && !phoneDetailsForm.mobilePhone.$error.required && phoneDetailsForm.mobilePhone.$error.phone">
+                Invalid Number. Please enter a 10 digit mobile number.
+            </div>
+        </div>
+
+        <div class="phone-details-information-text">
+
+            <p>Message and data rates may apply. One message per notification. Text HELP to 878787 for support. Text
+                STOP to 878787 to unsubscribe at any time. View SMS notification <a
+                        href="https://go.intellivisit.com/intellivisit/SMSTermsConditions.html" target="_blank">Terms
+                    and Conditions</a></p>
+            </p>
+        </div>
+
+        <hr class=" separator-hr"/>
+        <div class="text-align-center">
+            <button type="submit" class="btn secondary-button next-button-phone-details" id="nextBtn">Next
+            </button>
+        </div>
+    </form>
+</div>
+<div class="col-md-3 col-sm-2"></div>
+

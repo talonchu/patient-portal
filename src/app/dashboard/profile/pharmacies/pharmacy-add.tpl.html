@@ -1,0 +1,80 @@
+<form id="pharmaciesAddForm" name="pharmaciesAddForm" novalidate>
+	<div class="row">
+		<div class="col-xs-12">
+			<uib-alert ng-show="currentAlert !== undefiend" type="{{currentAlert.type}}"> <i
+				ng-class="ALERT_ICONS[currentAlert.type].class" ng-style="{color: ALERT_ICONS[currentAlert.type].color}"></i> <span
+				ng-bind-html="currentAlert.message"></span> </uib-alert>
+		</div>
+		<div class="col-xs-12 pharmacies-add-header pharmacy-header-title">Add a Pharmacy</div>
+	</div>
+	<div class="row">
+		<input type="text" placeholder="Enter Zip Code"
+			ng-model="searchText" name="searchText"
+			class="col-xs-11 pharmacy-add-search-text"  ng-pattern="/^[0-9]{5}$/"
+            maxlength="5" minlength="5" required numbers-only validate-zip-code>
+		<button class="pharmacies-fa-size-search col-xs-1"
+			ng-click="searchPharmaciesGo()">
+			<i class="fa fa-search"></i>
+		</button>
+		<div class="col-xs-11 error-container"
+			ng-show="pharmaciesAddForm.searchText.$touched && !pharmaciesAddForm.searchText.$viewValue">
+			{{PHARMACIES_ERROR_MESSAGES.REQUIRED_SEARCH_TEXT}}</div>
+		<div class="col-xs-11 error-container"
+			ng-show="pharmaciesAddForm.searchText.$touched && pharmaciesAddForm.searchText.$error.pattern">
+			{{PHARMACIES_ERROR_MESSAGES.INVALID_LENGTH_ZIP_CODE}}</div>
+		<div class="col-xs-11 error-container"
+			ng-show="pharmaciesAddForm.searchText.$touched && pharmaciesAddForm.searchText.$error.invalidUSZip && pharmaciesAddForm.searchText.$viewValue.length == 5 && !pharmaciesAddForm.searchText.$error.required">
+			{{PHARMACIES_ERROR_MESSAGES.INVALID_US_ZIP_CODE}}</div>
+	</div>
+	<br/>
+	<div class="row">
+		<div id="addressList" class="col-xs-12 col-md-4">
+			<div class="row">
+				<div class="col-xs-12 address-list-content">
+					<div class="row">
+						<div class="col-xs-12 error-container dashboard-pharmacies-error" ng-show="showNoResult">{{PHARMACIES_ERROR_MESSAGES.INVALID_SEARCH_TEXT}}</div>
+					</div>
+					<div id="pharmacyAdd{{pharmacy.pharmacyId}}" class="pharmacy-list-div" ng-repeat="pharmacy in pharmaciesList"
+						ng-click="selectedDiv($event,pharmacy,$index)">
+						<div class="address-header">{{$index+1}}. {{pharmacy.storeName}}</div>
+						<div>{{pharmacy.address1}} {{pharmacy.address2}}</div>
+						<div>{{pharmacy.city}},{{pharmacy.state}} {{pharmacy.zipCode}}</div>
+						<div>Phone number {{pharmacy.primaryPhone}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" ng-show="pharmaciesList">
+				<div class="col-xs-12 text-align-center">
+					<span>Page {{currentPage+1}} of {{totalPage}}</span>
+					<span>
+						&nbsp; <a href="" ng-click="getCurrentPageList(currentPage-1)" ng-hide="currentPage===0"><i class="fa fa-arrow-left"></i></a>
+
+					</span>
+					<span ng-repeat="pageNumber in range(currentPage)" ng-click="getCurrentPageList(pageNumber-1)">
+						&nbsp;<a href="" ng-bind="pageNumber" ng-class="currentPage === pageNumber-1 ? 'pharmacies-page-number-disabled' : '' ">{{$index}}</a>&nbsp;
+					</span>
+					<span>
+						<a href="" ng-click="getCurrentPageList(currentPage+1)" ng-hide="currentPage===totalPage-1"><i class="fa fa-arrow-right"></i></a>
+					</span>
+				</div>
+			</div>
+			<hr>
+
+			<div></div>
+		<div class="row">
+            <div class="col-xs-6">
+                <button type="button" class="btn secondary-button card-button"
+                    ng-click="cancel()">Cancel</button>
+            </div>
+            <div class="col-xs-6">
+                <button type="button" class="btn primary-button card-button"
+                    ng-click="save()">Save</button>
+            </div>
+        </div>
+		</div>
+		<div class="col-xs-10 col-md-8">
+            <div id="pharmacyMap"></div>
+        </div>
+	</div>
+</form>
+

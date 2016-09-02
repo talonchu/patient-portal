@@ -1,0 +1,39 @@
+<div class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-6 col-sm-1">
+                <img src="assets/image/smallLogo.png" class="site-logo" />
+            </div>
+            <div class="col-sm-11 hidden-xs">
+                <a class="logout-link" href ng-click="logout()" id="logout">Log Out</a>
+                <ul class="nav-list">
+                    <li ng-repeat="(key, value) in HEADER_NAV_ITEMS">
+                        <a href ng-click="navigate(value)" id="{{value.id}}">
+                            <i class="{{value.iconClass}}"></i>
+                            <br/>
+                            {{key}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-6 visible-xs">
+                <!-- Note: set the initial collapsed state and change it when clicking -->
+                <a ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed"
+                   class="btn btn-navbar hamburger-btn">
+                    <i class="fa fa-bars fa-2x"></i>
+                </a>
+                <!-- <a class="brand" href="#">Title</a> -->
+                <div uib-collapse="navCollapsed" class="nav-collapse collapse navbar-responsive-collapse">
+                    <ul class="hamburger-nav-list">
+                        <li ng-repeat="(key, value) in HEADER_NAV_ITEMS">
+                            <a href ng-click="navigate(value)" id="{{value.id}}">
+                                {{key}}
+                            </a>
+                        </li>
+                        <li><a href ng-click="logout()" id="logout">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

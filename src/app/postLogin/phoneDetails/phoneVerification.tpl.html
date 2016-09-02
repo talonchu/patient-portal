@@ -1,0 +1,28 @@
+<div class="col-md-3 col-sm-2"></div>
+
+<div class="col-md-6 col-sm-8 col-xs-12 default-content no-phone-details-container">
+    <div class="no-phone-details-header">Verify your phone number</div>
+    <hr>
+    <p class="forgot-password-page-description container-align-center">Intellivisit may need to request a prescription
+        as part of your visit.
+        Please verify your mobile phone number to be able to be reached by a pharmacist. We will never spam your
+        phone, nor will we share it with anyone.
+    </p>
+
+    <div class="phone-details-verification-container">
+        <div ng-include="'mobileVerificationModal/mobileVerification.tpl.html'"></div>
+    </div>
+
+    <hr class=" separator-hr"/>
+    <div>
+        <button type="button" class="btn secondary-button next-button-phone-details" id="backBtn"
+                ng-click="goBack()">Back
+        </button>
+        <button type="button" class="btn primary-button next-button-phone-details pull-right" id="skipBtn"
+                ng-click="whereTo()">Skip
+        </button>
+    </div>
+
+</div>
+<div class="col-md-3 col-sm-2"></div>
+

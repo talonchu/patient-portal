@@ -1,0 +1,148 @@
+<form class="payment-methods" name="paymentMethodsForm" ng-submit="save()" novalidate>
+    <div class="row">
+        <div class="col-xs-12">
+            <uib-alert ng-show="currentAlert !== undefiend" type="{{currentAlert.type}}">
+                <i ng-class="ALERT_ICONS[currentAlert.type].class" ng-style="{color: ALERT_ICONS[currentAlert.type].color}"></i>
+                <span ng-bind-html="currentAlert.message"></span>
+            </uib-alert>
+        </div>
+        <div class="col-xs-12 col-lg-11">
+        	<h3 style="margin-top: 0;">Add Credit/Debit Card</h3>
+            <div class="form-group">
+                <span class="red-star">*</span>
+                <input type="text" class="form-control" name="cardNumber" id="cardNumber" ng-model="cardNumber" placeholder="Card Number" numbers-only required validate-card-number>
+                <div class="error-container"
+                     ng-show="paymentMethodsForm.cardNumber.$touched && paymentMethodsForm.cardNumber.$error.required">
+                     {{PAYMENT_METHODS_ERROR_MESSAGES.REQUIRED_CARD_NUMBER}}
+                </div>
+                <div class="error-container"
+                     ng-show="paymentMethodsForm.cardNumber.$touched && !paymentMethodsForm.cardNumber.$error.required && (paymentMethodsForm.cardNumber.$error.ccType || paymentMethodsForm.cardNumber.$error.luhnCheck)">
+                     {{PAYMENT_METHODS_ERROR_MESSAGES.INVALID_CARD_NUMBER}}
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="red-star">*</span>
+                <input type="text" class="form-control" name="nameOnCard" id="nameOnCard" ng-model="nameOnCard" placeholder="Name on Card" required>
+                <div class="error-container"
+                     ng-show="paymentMethodsForm.nameOnCard.$touched && paymentMethodsForm.nameOnCard.$error.required">
+                     {{PAYMENT_METHODS_ERROR_MESSAGES.REQUIRED_NAME_ON_CARD}}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <span class="red-star">*</span>
+		                <select class="form-control" name="expireMonth" id="expireMonth" ng-model="expireMonth" required>
+		                    <option value="" disabled selected>-Expiration Month-</option>
+                            <option ng-repeat="month in months" value="{{month}}">{{month}}</option>
+		                </select>
+                        <div class="error-container"
+                             ng-show="paymentMethodsForm.expireMonth.$touched && paymentMethodsForm.expireMonth.$error.required">
+                             {{PAYMENT_METHODS_ERROR_MESSAGES.REQUIRED_EXPIRE_MONTH}}
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <span class="red-star">*</span>
+		                <select class="form-control" name="expireYear" id="expireYear" ng-model="expireYear" required ng-change="adjustMonthSelect()">
+		                    <option value="" disabled selected>-Expiration Year-</option>
+                            <option ng-repeat="year in YEARS" value="{{year}}">{{year}}</option>
+		                </select>
+                        <div class="error-container"
+                             ng-show="paymentMethodsForm.expireYear.$touched && paymentMethodsForm.expireYear.$error.required">
+                             {{PAYMENT_METHODS_ERROR_MESSAGES.REQUIRED_EXPIRE_YEAR}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <span class="red-star">*</span>
+                        <input type="text" class="form-control" name="cvv" id="cvv" ng-model="cvv" placeholder="Security Code" numbers-only validate-cvv required minlength="3" maxlength="4" ng-disabled="paymentMethodsForm.cardNumber.$invalid">
+                        <div class="error-container"
+                             ng-show="paymentMethodsForm.cvv.$touched && paymentMethodsForm.cvv.$error.required">
+                             {{PAYMENT_METHODS_ERROR_MESSAGES.REQUIRED_CVV}}
+                        </div>
+                        <div class="error-container"
+                             ng-show="paymentMethodsForm.cvv.$touched && (paymentMethodsForm.cvv.$invalid && !paymentMethodsForm.cvv.$error.required)">
+                             {{PAYMENT_METHODS_ERROR_MESSAGES.INVALID_CVV}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="makeDefault" id="makeDefault" ng-model="makeDefault" id="makeDefault" />
+                <label for="makeDefault">Set as default payment method</label>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="useHomeAddress" id="useHomeAddress" ng-model="useHomeAddress" id="useHomeAddress" ng-change="toggleAddress();" />
+                <label for="useHomeAddress">Billing Address is the same as my Home Address</label>
+            </div>
+            <div class="form-group">
+                <span class="red-star">*</span>
+                <input type="text" class="form-control" name="address1" id="address1" ng-model="address1" placeholder="Billing Address 1" required ng-disabled="useHomeAddress">
+                <div class="error-container"
+                     ng-show="paymentMethodsForm.address1.$touched && paymentMethodsForm.address1.$error.required">
+                     {{PAYMENT_METHODS_ERROR_MESSAGES.REQUIRED_ADDRESS1}}
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="address2" id="address2" ng-model="address2" placeholder="Billing Address 2" ng-disabled="useHomeAddress">
+            </div>
+            <div class="form-group">
+                <span class="red-star">*</span>
+                <input type="text" class="form-control" name="city" id="city" ng-model="city" placeholder="Billing City" required ng-disabled="useHomeAddress">
+                <div class="error-container"
+                     ng-show="paymentMethodsForm.city.$touched && paymentMethodsForm.city.$error.required">
+                     {{PAYMENT_METHODS_ERROR_MESSAGES.REQUIRED_CITY}}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <span class="red-star">*</span>
+		                <input type="text" class="form-control" name="zipCode" id="zipCode" ng-model="zipCode" placeholder="Billing Zip Code" required validate-zip-code ng-pattern="/^[0-9]{5}$/" maxlength="5" minlength="5" numbers-only ng-disabled="useHomeAddress">
+                        <div class="error-container"
+                             ng-show="paymentMethodsForm.zipCode.$touched && paymentMethodsForm.zipCode.$error.required">{{PAYMENT_METHODS_ERROR_MESSAGES.REQUIRED_ZIPCODE}}
+                        </div>
+                        <div class="error-container"
+                             ng-show="paymentMethodsForm.zipCode.$touched && paymentMethodsForm.zipCode.$error.pattern">{{PAYMENT_METHODS_ERROR_MESSAGES.ZIPCODE_FORMAT}}
+                        </div>
+                        <div class="error-container"
+                             ng-show="paymentMethodsForm.zipCode.$touched && paymentMethodsForm.zipCode.$error.invalidUSZip">{{PAYMENT_METHODS_ERROR_MESSAGES.ZIPCODE_INVALID}}
+                        </div>
+                    </div>
+                     <div class="col-xs-6">
+                        <span class="red-star">*</span>
+		                <select class="form-control" name="state" id="state" ng-model="state" required ng-disabled="useHomeAddress">
+		                    <option value="" disabled selected>-Billing State-</option>
+                            <option ng-repeat="(key, value) in STATES_IN_USA" value="{{key}}">{{value}}</option>
+		                </select>
+                        <div class="error-container"
+                             ng-show="paymentMethodsForm.state.$touched && paymentMethodsForm.state.$error.required">
+                             {{PAYMENT_METHODS_ERROR_MESSAGES.REQUIRED_STATE}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="agreePaymentTC" id="agreePaymentTC" ng-model="agreePaymentTC" id="agreePaymentTC" />
+                <label for="agreePaymentTC">I have read and agree to the payment <a href="http://www.authorize.net/company/terms/" target="_blank">Terms & Conditions</a></label>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 col-xs-offset-8">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button type="button" class="btn secondary-button card-button" ui-sref="dashboard.profile.paymentMethods.list">Cancel</button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button type="submit" class="btn primary-button card-button" ng-disabled="isSaving || !agreePaymentTC">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

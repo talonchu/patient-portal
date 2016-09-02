@@ -1,0 +1,97 @@
+<div class="row">
+	<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 default-content login-content">
+		<div class="row login-logo-container">
+			<div class="col-xs-12 col-md-4 col-md-offset-4">
+				<img src="assets/image/smallLogo.png" class="logo">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-md-6 login-panel">
+				<form name="loginForm" novalidate ng-submit="login()">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="login-sub-header">Sign In</div>
+							<div
+								ng-class="[{'has-error': loginForm.username.$dirty && loginForm.username.$invalid},{ 'has-success': loginForm.username.$dirty && !loginForm.username.$invalid} ]">
+								<input class="form-control input-lg" name="username" type="text" placeholder="Email Address/Username" required
+									id="username" ng-model="username" autocorrect="off" autocapitalize="none" />
+							</div>
+							<div
+								ng-class="[{'has-error': loginForm.password.$dirty &&loginForm.password.$invalid }, {'has-success':loginForm.password.$dirty && !loginForm.password.$invalid}]">
+								<input class="form-control input-lg" name="password" type="password" placeholder="Password" required id="password"
+									ng-model="password" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<button type="submit" class="btn primary-button" id="signInBtn">Sign In</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 center-when-small">
+							<input type="checkbox" name="remember" id="remember" ng-model="remember" id="remember" />
+							<label for="remember">Remember Me</label>
+							<div>
+								<a id="forgetPassword" ui-sref="forgotPassword.step1">Forgot Username or Password?</a>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-xs-12 col-md-6 login-panel">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="login-sub-header notMemberText">Not a Member?</div>
+						<div class="login-declaimer-header">Sign up for a free account</div>
+						<div class="login-declaimer">Intellivisit makes it easy for you to connect with a local provider for on-demand treatment of minor illnesses. No matter where you are, feeling better is only a few taps away.</div>
+					</div>
+					<div class="col-xs-12">
+						<button type="button" class=" btn secondary-button" ui-sref="register.step1" id="createBtn">Create Account</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="login-alert">
+	<uib-alert ng-show="currentAlert !== undefiend" type="{{currentAlert.type}}"> <i
+		ng-class="ALERT_ICONS[currentAlert.type].class" ng-style="{color: ALERT_ICONS[currentAlert.type].color}"></i> <span
+		ng-bind-html="currentAlert.message"></span> </uib-alert>
+</div>
+
+<div ng-show="selectProvider" class="select-provider-panel">
+	<div class="row empty-header"></div>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3 select-provider-content">
+			<div class="row">
+				<div class="col-xs-12 pop-header">Select your local provider network</div>
+				<div class="col-xs-12 pop-sub-header">Choice in our out of network within driving distance!</div>
+			</div>
+			<div class="row pop-contianer">
+				<div id="providerMap" class="col-xs-12 col-md-8 map-div" select-provider></div>
+				<div class="col-xs-12 col-md-4 address-list-contianer">
+					<div id="addressList" ng-repeat="customer in customerList">
+						<div id="customer{{customer.customerId}}" class="address-div" ng-click="selectedDiv($event,customer)">
+							<div class="address-header">{{customer.customerName}}</div>
+							<div>{{customer.corporateAddress1}}</div>
+							<div>{{customer.corporateCity}},{{customer.corporateState}} {{customer.corporateZipCode}}</div>
+							<div>Phone number {{customer.corporatePhone}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-xs-6 col-xs-offset-6 col-md-4 col-md-offset-8">
+					<div class="btn-right select-provider-next-div">
+						<button type="button" class="btn primary-button" ng-click="selectProviderNext()" id="selectProviderNext"
+							ng-disabled="disableNext">Next</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

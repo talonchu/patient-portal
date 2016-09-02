@@ -1,0 +1,124 @@
+//================================================================================
+// Button styles.
+//================================================================================
+.primary-button {
+	width: 100%;
+	font-size: @font-size-h3;
+	background-color: @brand-primary;
+	color: #fff;
+}
+
+.primary-button:hover , .primary-button:focus {
+	color: #eae500 ! important;
+}
+
+.secondary-button {
+	.primary-button;
+	background-color: #fff;
+	color: @brand-primary;
+	border-color: @brand-primary;
+}
+
+.secondary-button:hover , .secondary-button:focus {
+	color: #fff ! important;
+	background-color: @brand-primary;
+	border-color: @brand-primary ! important;
+}
+
+//================================================================================
+// Default select style
+//================================================================================
+.primary-select {
+	width: 100%;
+	font-size: @font-size-base;
+	margin-bottom: 5px;
+	background: #fff url("image/select-arrow-30px.png") no-repeat right 5px center;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	cursor: pointer;
+	text-indent: 0.01px;
+	text-overflow: "";
+	display: inline-block;
+	outline: none;
+}
+
+//================================================================================
+// Default textarea style
+//================================================================================
+textarea {
+	font-size: @font-size-large;
+	color: @gray-light;
+	width: 100%;
+}
+
+//================================================================================
+// Default checkbox style, it needs to be used with label.
+// <input id="XXXX" type="checkbox" value="true"/>
+// <label for="XXXX"></label>
+//================================================================================
+input[type=checkbox] {
+	position: absolute;
+	z-index: -1000;
+	left: -1000px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+}
+
+input[type=checkbox] + label {
+	padding-left: 30px;
+	height: 25px;
+	cursor: pointer;
+	background: url(image/green-back-check-box.png) no-repeat 0 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	margin-bottom: 0;
+}
+
+input[type=checkbox]:checked + label {
+	background-position: 0 -25px;
+}
+
+::-ms-clear {
+  display: none;
+}
+
+.red-star {
+	color: red;
+	font-size: @font-size-medium;
+	font-weight: bold;
+	position: absolute;
+	right: 0;
+}
+
+.circle-blue {
+	width: 92px;
+	height: 92px;
+	border-radius: 46px;
+	border: 1px solid #A9A9A9;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.plus-in-circle {
+	.text-align-center;
+	line-height: 92px;
+	display: block;
+	color: @brand-primary;
+	font-size: 100px;
+	font-weight: 100;
+}

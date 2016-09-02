@@ -1,0 +1,63 @@
+<form name="contactPreferencesForm" novalidate ng-submit="savePreferences()">
+    <div class="row">
+        <div class="col-xs-12">
+            <uib-alert ng-show="currentAlert !== undefiend" type="{{currentAlert.type}}"><i
+                    ng-class="currentAlert.style.class" ng-style="{color: currentAlert.style.color}"></i> <span
+                    ng-bind-html="currentAlert.message" style="padding-left: 0;"></span></uib-alert>
+        </div>
+
+
+        <div class="col-xs-12 form-group comm-prefer-container">
+            <p class="comm-prefer-header"> Intellivisit may send you reminders from time to time about your visits.
+                You can
+                set your
+                communication preferences here. We will never spam you email or cell phone, nor will we share it
+                with anyone.</p>
+            <div class="row com-prefer-row">
+                <div class="col-xs-12">
+                    <input type="checkbox" name="emailNotification" ng-model="notification.emailNotification"
+                           id="emailNotification"/>
+                    <label for="emailNotification">Please send me e-mail notifications:</label>
+                </div>
+                <p class="comm-preferences-value"> {{commPreferenceEmail}}</p>
+            </div>
+
+
+            <div class="row com-prefer-row">
+                <div class="col-xs-12">
+                    <input type="checkbox" name="textNotification" ng-model="notification.textNotification"
+                           ng-disabled="{{!isMobileVerified}}" id="textNotification"/>
+                    <label for="textNotification">Please send me text message notifications:</label>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12" ng-show='{{commPreferencePhoneNumber != ""}}'>
+                        <p class="comm-preferences-value">
+                            {{commPreferencePhoneNumber}}</p>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" ng-show='{{commPreferencePhoneNumber == ""}}'>
+                        <p class="comm-preferences-value">
+                            Please go to the <a ui-sref="dashboard.profile.accountInformation">Account
+                            Information</a> page to add a mobile phone number to your Account Profile.</p>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12" ng-show="{{isMobileVerified}}"><p>Verified</p></div>
+                    <div class="col-md-6 col-sm-6 col-xs-12"
+                         ng-show='{{isMobileVerified == false && commPreferencePhoneNumber != ""}}'><a
+                            ng-click="open()" class="cursor-pointer">
+                        Verify Number</a></div>
+                </div>
+            </div>
+
+            <div class="error-container dashboard-comm-error" ng-show="contactPreferencesForm.$error.notification">
+                {{CONTACT_ERROR_MESSAGES.REQUIRED_CONTACT_METHOD}}
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-lg-10 form-group">
+            <div class="col-xs-12 col-md-4 col-lg-3 pull-right">
+                <button type="submit" class="btn primary-button">Save
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

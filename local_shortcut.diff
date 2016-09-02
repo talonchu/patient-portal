@@ -1,0 +1,41 @@
+diff --git a/Gruntfile.js b/Gruntfile.js
+index 5f39d79..4ab3ab1 100644
+--- a/Gruntfile.js
++++ b/Gruntfile.js
+@@ -89,7 +89,7 @@ module.exports = function (grunt) {
+                 options: {
+                     port: 8888,
+                     base: 'build',
+-                    protocol: 'https'
++                    protocol: 'http'
+                 }
+             }
+         },
+diff --git a/src/app/constants/router-filter.js b/src/app/constants/router-filter.js
+index 611a277..a7f8f6d 100644
+--- a/src/app/constants/router-filter.js
++++ b/src/app/constants/router-filter.js
+@@ -3,5 +3,6 @@ var WHITE_STATE_LIST = {
+     "login": true,
+     "forgotPassword": true,
+     "ErrorsNoCustomerMatchError": true,
+-    "registerSuccess": true
++    "registerSuccess": true,
++    "dashboard": true
+ };
+\ No newline at end of file
+diff --git a/src/app/routes.js b/src/app/routes.js
+index f074e36..b6429e8 100644
+--- a/src/app/routes.js
++++ b/src/app/routes.js
+@@ -1,8 +1,9 @@
+ var rootPrefix = location.origin + '/';
+ if (rootPrefix.match("localhost")) {
+-    rootPrefix = 'https://stlscvmg93211' + '/';
++    rootPrefix = 'http://localhost:8080' + '/';
+ }
+ 
++sessionStorage.setItem("username", "chevy.li@perficient.com");
+ 
+ var Routes = {
+ 

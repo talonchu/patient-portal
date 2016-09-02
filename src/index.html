@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="Intellivisit.patient" ng-controller="AppCtrl">
+<head>
+    <title ng-bind="pageTitle"></title>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <link href="assets/css/font-awesome.css" rel="stylesheet">
+
+    <!-- compiled CSS -->
+    <% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>"/>
+    <% }); %>
+
+    <!--
+            Global variable to indicate the device state
+            Note: they should be assigned before introducing the compiled JavaScript so that they can be referenced there.
+        -->
+    <!--@formatter:off-->
+    <script>
+        IS_MOBILE = '<%= is_mobile %>';
+    </script>
+    <!--@formatter:on-->
+
+
+    <script type="text/javascript" src="assets/js/google/Google.js"></script>
+    <!-- compiled JavaScript -->
+    <% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script>
+    <% }); %> <% if(is_mobile) {%>
+    <script type="text/javascript" src="cordova.js"></script>
+    <% } %>
+    <script src="src/app/buildDetails.js"></script>
+</head>
+<body class="<%=is_mobile ? 'is-mobile' : 'is-desktop' %>" ng-class="bodyClass || 'default-body'"
+      background-image={{backgroundImage}}>
+<div class="container-fluid">
+    <div class="row">
+        <div data-ui-view="header" class="col-xs-12">
+        </div>
+    </div>
+    <div class="row">
+        <div data-ui-view="content" class="col-xs-12">
+        </div>
+    </div>
+    <div class="row">
+        <div data-ui-view="footer" class="col-xs-12">
+        </div>
+    </div>
+</div>
+</body>
+</html>

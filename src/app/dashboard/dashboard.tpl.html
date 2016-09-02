@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2 default-content">
+        <div class="hidden-xs hidden-sm col-md-12">
+            <div class="col-md-2 col-sm-2 col-lg-1">
+                <img ng-src="{{avatarUrl}}" class="img-circle dashboard-avatar" />
+            </div>
+            <div class="col-md-10 col-sm-10 col-lg-11">
+                <span class="col-xs-12 col-sm-12 col-md-10 dashboad-header-title">{{currentSelecteItem.content}}</span>
+                <span class="col-xs-12 col-sm-12 col-md-10"> {{currentSelecteItem.subContent}}</span>
+            </div>
+        </div>
+        <div class="row"><div class="col-xs-12"><hr></div></div>
+        <div class="col-xs-12 col-md-4 col-lg-3 left-nav-link">
+            <div ng-class="selectedAccountProfile" ng-model="accountProfileCollapsed"
+                 ng-click="expandProfile('accountProfile')" class="nav-header">Account Profile
+               <i ng-show="accountProfileCollapsed" class="fa fa-plus icon-margin-account" aria-hidden="true"></i> <i ng-show="!accountProfileCollapsed" class="fa fa-minus icon-margin-account" aria-hidden="true"></i>
+            </div>
+            <hr class="separator-hr hr-margin" />
+            <div ng-show="!accountProfileCollapsed">
+                <span ng-repeat="item in leftNavItems | filter:{mode: 'accountProfile'}" ng-class="{true: 'left-nav-selected', false: ' '}[item.selected]">
+                    <a ui-sref="{{item.link}}" ui-sref-opts="{reload: true}" ng-click="leftNavSelected(item)" id="{{item.id}}"><font>{{item.content}}</font></a>
+                </span>
+            </div>
+
+
+            <div ng-class="selectedHealthProfile" ng-model="healthProfileCollapsed" ng-click="expandProfile('healthProfile')" class="nav-header">Health Profile
+               <i ng-show="healthProfileCollapsed" class="fa fa-plus icon-margin-health" aria-hidden="true"></i> <i ng-show="!healthProfileCollapsed" class="fa fa-minus icon-margin-health" aria-hidden="true"></i>
+            </div>
+            <hr class="separator-hr hr-margin" />
+            <div ng-show="!healthProfileCollapsed">
+                <span ng-repeat="item in leftNavItems | filter:{mode: 'healthProfile'}" ng-class="{true: 'left-nav-selected', false: ' '}[item.selected]">
+                    <a ng-click="leftNavSelected(item)" id="{{item.id}}"><font>{{item.content}}</font></a>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-xs-12 hidden-md hidden-lg">
+            <div class="col-md-2 col-sm-2 col-lg-1">
+                <img ng-src="{{avatarUrl}}" class="img-circle dashboard-avatar" />
+            </div>
+            <div class="col-md-10 col-sm-10 col-lg-11">
+                <span class="col-xs-12 col-sm-12 col-md-10 dashboad-header-title">{{currentSelecteItem.content}}</span>
+                <span class="col-xs-12 col-sm-12 col-md-10"> {{currentSelecteItem.subContent}}</span>
+            </div>
+            <hr>
+        </div>
+
+        <div class="col-xs-12 col-md-8 col-lg-9 dashboard-padding-left">
+            <div ui-view></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<form id="securityForm" name="securityForm" ng-submit="save()" novalidate>
+    <div class="row">
+        <div class="col-xs-12">
+            <uib-alert ng-show="currentAlert !== undefiend" type="{{currentAlert.type}}"><i
+                    ng-class="ALERT_ICONS[currentAlert.type].class"
+                    ng-style="{color: ALERT_ICONS[currentAlert.type].color}"></i> <span
+                    ng-bind-html="currentAlert.message"></span></uib-alert>
+        </div>
+        <div class="col-xs-12 col-md-10 col-lg-10">
+            <div class="form-group">
+                <select name="question1" id="question1" class="primary-select form-control" required="required"
+                        ng-model="question1" validate-question>
+                    <option class="register-first-option" value="" disabled selected>Select a Question
+                    </option>
+                    <option ng-repeat="(key, value) in questionSet1" value="{{key}}">{{value}}</option>
+                </select> <br/>
+                    <span class="error-container"
+                          ng-show="securityForm.question1.$touched && securityForm.question1.$error.required">{{SECURITY_ERROR_MESSAGES.REQUIRED_QUESTION1}}</span>
+                    <textarea rows="3" class="textarea-font form-control" ng-model="answer1"
+                              placeholder="Please enter question 1 answer." name="answer1" required
+                              validate-answer="answer2"></textarea>
+                <span class=" error-container"
+                      ng-show="securityForm.answer1.$touched && securityForm.answer1.$error.required">{{SECURITY_ERROR_MESSAGES.REQUIRED_ANSWER}}</span>
+            </div>
+            <div class="form-group">
+                <select name="question2" id="question2" class="primary-select form-control" required="required"
+                        ng-model="question2" validate-question>
+                    <option class="register-first-option" value="" disabled selected>Select a Question
+                    </option>
+                    <option ng-repeat="(key, value) in questionSet2" value="{{key}}">{{value}}</option>
+                </select><br/>
+                    <span class="error-container"
+                          ng-show="securityForm.question2.$touched && securityForm.question2.$error.required">{{SECURITY_ERROR_MESSAGES.REQUIRED_QUESTION2}}</span>
+                    <textarea rows="3" class="textarea-font form-control" ng-model="answer2"
+                              placeholder="Please enter question 2 answer." name="answer2" required
+                              validate-answer="answer1"></textarea>
+                <span class="error-container"
+                      ng-show="securityForm.answer2.$touched && securityForm.answer2.$error.required">{{SECURITY_ERROR_MESSAGES.REQUIRED_ANSWER}}</span>
+                    <span class="error-container"
+                          ng-show="securityForm.question2.$touched && securityForm.question2.$error.sameQuestion">{{SECURITY_ERROR_MESSAGES.SAME_QUESTION}}</span>
+                    <span class="error-container"
+                          ng-show="securityForm.answer2.$touched && securityForm.answer2.$error.sameAnswer">{{SECURITY_ERROR_MESSAGES.SAME_ANSWER}}</span>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-4 pull-right">
+                    <button type="submit" class="btn primary-button" ng-disabled="isSaving">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

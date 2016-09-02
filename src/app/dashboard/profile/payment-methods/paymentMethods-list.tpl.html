@@ -1,0 +1,56 @@
+<form id="paymentMethodForm" name="paymentMethodForm" ng-submit="save()" novalidate>
+	<div class="row payment-methods">
+		<div class="col-xs-12">
+			<uib-alert ng-show="currentAlert !== undefiend" type="{{currentAlert.type}}"> <i
+				ng-class="ALERT_ICONS[currentAlert.type].class" ng-style="{color: ALERT_ICONS[currentAlert.type].color}"></i> <span
+				ng-bind-html="currentAlert.message"></span> </uib-alert>
+		</div>
+		<div class="col-xs-6 col-md-6 col-lg-4" ng-repeat="card in cards">
+			<div class="card">
+				<div class="row">
+					<div class="col-xs-3 text-align-center">
+						<i class="fa fa-asterisk" ng-show="isDefault(card)"></i>
+					</div>
+					<div class="col-xs-6 text-align-center card-icon">
+						<i ng-class="PAYMENT_CARD_ICONS_CLASS[card.cardName.toLowerCase()]"></i>
+					</div>
+				</div>
+				<div class="text-align-center card-name">
+					{{card.cardName}} <br /> {{" ending in " + card.partialCardNumber}}
+				</div>
+				<div class="card-address">
+					<div class="text-align-center">{{"Exp. " + (card.expMonth.length === 1 ? ("0" + card.expMonth) : card.expMonth) + "/" +
+						card.expYear}}</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6 left-button">
+						<button type="button" class="primary-button card-button" ui-sref="dashboard.profile.paymentMethods.edit({card: card})">Edit</button>
+					</div>
+					<div class="col-xs-6 right-button">
+						<button type="button" class="primary-button card-button" ng-click="openDelModal('sm', card)">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 col-md-6 col-lg-4">
+			<a ui-sref="dashboard.profile.paymentMethods.add" style="text-decoration: none;">
+				<div class="card">
+					<div class="row">
+						<div class="col-xs-2">
+							<i class="fa fa-asterisk" ng-show="false"></i>
+						</div>
+						<div class="col-xs-8 text-align-center plus-container">
+							<div class="circle-blue">
+								<span class="plus-in-circle">+</span>
+							</div>
+						</div>
+					</div>
+					<div class="text-align-center card-name">Add a Credit/Debit Card</div>
+					<div class="card-address">
+						<div class="text-align-center" style="color: #333;">Click here</div>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</form>

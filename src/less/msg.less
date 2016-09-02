@@ -1,0 +1,24 @@
+.error-container {
+    color: red;
+    border-color: red;
+}
+
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+    border: solid 2px red;
+}
+
+
+.input-validation-rules i.fa {
+    color: @gray;
+}
+
+.input-validation-rules span {
+    color: @text-color;
+}
+
+.input-validation-rules i.fa.valid {
+    color: @brand-secondary;
+    & + span {
+    	color: @brand-secondary;
+    }
+}

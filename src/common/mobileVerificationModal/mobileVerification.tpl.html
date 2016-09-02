@@ -1,0 +1,68 @@
+<div ng-controller="MobileVerificationCtrl">
+
+    <form name="phoneDetailsForm" novalidate ng-submit="verifyPhone()">
+        <div class="col-xs-12">
+            <uib-alert ng-show="currentAlert !== undefiend" type="{{currentAlert.type}}"><i
+                    ng-class="currentAlert.style.class" ng-style="{color: currentAlert.style.color}"></i> <span
+                    ng-bind-html="currentAlert.message" style="padding-left: 0;"></span></uib-alert>
+        </div>
+        <div class="row ">
+            <div class="col-lg-6 col-md-7 col-sm-7 col-xs-7">
+                <p> We sent a verification code to : </p>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-5">
+                <p><strong>{{mobilePhone}}</strong></p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6 col-md-7 col-sm-7 col-xs-7">
+                    <p> Please enter the verification code:</p>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-5">
+                    <input type="text" class="phone-details-text-control" id="verificationCode"
+                           placeholder="PIN"
+                           ng-model="verificationCode"
+                           name="verificationCode"
+                           ng-class="{'ng-invalid' : (phoneDetailsForm.mobilePhone.$touched && phoneDetailsForm.verificationCode.$error.required) || (phoneDetailsForm.verificationCode.$dirty && isVerificationCodeValid == false)}"
+                           required numbers-only/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-7 col-sm-7 col-xs-7"></div>
+                <div class="col-lg-6 col-md-5 col-sm-5 col-xs-5 error-container "
+                     ng-show="phoneDetailsForm.verificationCode.$touched && (phoneDetailsForm.verificationCode.$error.required || isUserInputValid == false)">
+                    Please enter an Identification Code.
+                </div>
+                <div class="col-lg-6 col-md-5 col-sm-5 col-xs-5 error-container "
+                     ng-show="phoneDetailsForm.verificationCode.$dirty && isVerificationCodeValid == false && verificationCode == oldVerificationCode && !phoneDetailsForm.verificationCode.$error.required ">
+                    Invalid identification code. Please try again.
+                </div>
+            </div>
+            <div class="row phone-details-validate-button-container">
+                <div class="col-lg-6 col-md-7 col-sm-7 col-xs-7">
+                    <a ng-click="requestNewCode()" class="cursor-pointer pull-left">Request a new Identification
+                        Code</a>
+                </div>
+                <div class="col-lg-6 col-md-5 col-sm-5 col-xs-5">
+                    <button type="submit" class="btn primary-button mobile-verification-validate-button"
+                            id="validateBtn">Verify
+                    </button>
+                    <button type="button" ng-click="close()"
+                            class="btn secondary-button mobile-verification-validate-button"
+                            id="cancelBtn" ng-show="isModal">Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="phone-details-information-text">
+        <p>Message and data rates may apply. One message per notification. Text HELP to 878787 for support. Text
+            STOP to 878787 to un-subscribe at any time. View SMS notification <a
+                    href="https://go.intellivisit.com/intellivisit/SMSTermsConditions.html" target="_blank">Terms and
+                Conditions</a></p>
+        </p>
+    </div>
+</div>

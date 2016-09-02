@@ -1,0 +1,159 @@
+<form action="" name="regForm" method="POST" role="form" novalidate>
+    <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 default-content">
+        <h3 class="register-sub-header">Great decision, let's get started!</h3>
+        <hr class="separator-hr"/>
+        <div class="register-sub-header-font">Step 1 of 2: Create your account.</div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" class="register-text-control" id="firstName" placeholder="First Name"
+                           ng-model="firstName" name="firstName" required ng-minlength="1"
+                           ng-pattern="/^[\x27a-zA-z0-9-]*[a-zA-Z][\x27a-zA-z0-9-]*$/"/>
+                    <div class="error-container"
+                         ng-show="regForm.firstName.$touched && (regForm.firstName.$error.required || regForm.firstName.$error.minlength || regForm.firstName.$error.maxlength)">
+                        {{REGISTER_ERROR_MESSAGES.REQUIRED_FIRST_NAME}}
+                    </div>
+                    <div class="error-container"
+                         ng-show="regForm.firstName.$touched && regForm.firstName.$error.pattern">
+                        {{REGISTER_ERROR_MESSAGES.INVALID_FIRST_NAME}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class=" register-text-control" id="lastName" placeholder="Last Name"
+                           ng-model="lastName" name="lastName" required ng-minlength="2"
+                           ng-pattern="/^[\x27a-zA-z0-9-]*[a-zA-Z][\x27a-zA-z0-9-]*$/"/>
+                    <div class="error-container"
+                         ng-show="regForm.lastName.$touched && (regForm.lastName.$error.required || regForm.lastName.$error.minlength || regForm.lastName.$error.maxlength)">
+                        {{REGISTER_ERROR_MESSAGES.INVALID_LENGTH_LAST_NAME}}
+                    </div>
+                    <div class="error-container" ng-show="regForm.lastName.$touched && regForm.lastName.$error.pattern">
+                        {{REGISTER_ERROR_MESSAGES.INVALID_LAST_NAME}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group register-date-of-birth">
+                        <input type="text" class="register-text-control register-date-of-birth" id="dateOfBirth"
+                               uib-datepicker-popup="{{ALLOWED_DATE_FORMATS[0]}}" ng-model="dateOfBirth"
+                               name="dateOfBirth" id="dateOfBirth" is-open="dobPopOpen" placeholder="Date of Birth"
+                               alt-input-formats="ALLOWED_DATE_FORMATS"
+                               datepicker-options="dateOptions" ng-required="true" close-text="Close" validate-dob/>
+
+                        <div class="input-group-btn register-calendar">
+                            <button type="button" class="register-text-control register-text-control-calendar"
+                                    id="dateOfBirthCalendar" ng-click="dobPopOpen = true" tabindex="-1">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="error-container"
+                         ng-show="regForm.dateOfBirth.$touched && regForm.dateOfBirth.$error.required">
+                        {{REGISTER_ERROR_MESSAGES.REQUIRED_DATE_OF_BIRTH}}
+                    </div>
+                    <div class="error-container"
+                         ng-show="regForm.dateOfBirth.$touched && regForm.dateOfBirth.$error.date && regForm.dateOfBirth.$error.pattern">
+                        {{REGISTER_ERROR_MESSAGES.INVALID_FORMAT_DATE}}
+                    </div>
+                    <div class="error-container"
+                         ng-show="regForm.dateOfBirth.$touched && regForm.dateOfBirth.$error.date && !regForm.dateOfBirth.$error.pattern">
+                        {{REGISTER_ERROR_MESSAGES.INVALID_DATE}}
+                    </div>
+                    <div class="error-container"
+                         ng-show="regForm.dateOfBirth.$touched && regForm.dateOfBirth.$error.atLeast13YearsOld">
+                        {{REGISTER_ERROR_MESSAGES.AT_LEAST_THIREEN_YEARS_OLD_DATE}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="register-text-control" placeholder="Zip Code" ng-model="zipCode"
+                           ng-pattern="/^[0-9]{5}$/" maxlength="5" minlength="5" name="zipCode" id="zipCode" required
+                           numbers-only validate-zip-code/>
+                    <div class="error-container" ng-show="regForm.zipCode.$touched && !regForm.zipCode.$viewValue">
+                        {{REGISTER_ERROR_MESSAGES.REQUIRED_ZIP_CODE}}
+                    </div>
+                    <div class="error-container" ng-show="regForm.zipCode.$touched && regForm.zipCode.$error.pattern">
+                        {{REGISTER_ERROR_MESSAGES.INVALID_LENGTH_ZIP_CODE}}
+                    </div>
+                    <div class="error-container"
+                         ng-show="regForm.zipCode.$touched && regForm.zipCode.$error.invalidUSZip && regForm.zipCode.$viewValue.length == 5">
+                        {{REGISTER_ERROR_MESSAGES.INVALID_US_ZIP_CODE}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <select id="gender" name="gender" class="register-text-control"
+                            ng-class="{'register-first-option': gender == undefined, 'ng-invalid': regForm.gender.$touched &&  gender == undefined}"
+                            ng-model="gender"
+                            validate-gender>
+                        <option value="" disabled selected>
+                            Please Select Gender
+                        </option>
+                        <option class="register-valid-options" ng-repeat="(key, value) in genderSet"
+                                value="{{key}}">{{value}}
+                        </option>
+                    </select>
+                    <div class="error-container"
+                         ng-show="regForm.gender.$error.genderValidity || (regForm.gender.$touched &&  gender == undefined)">
+                        {{REGISTER_ERROR_MESSAGES.REQUIRED_GENDER}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" id="email" class="register-text-control"
+                           placeholder="Email Address" ng-model="email" validate-email required/>
+                    <div class="error-container" ng-show="regForm.email.$touched && regForm.email.$error.required">
+                        {{REGISTER_ERROR_MESSAGES.REQUIRED_EMAIL}}
+                    </div>
+                    <div class="error-container"
+                         ng-show="regForm.email.$touched && regForm.email.$error.alreadyExists && !regForm.email.$error.required && !regForm.email.$error.email">
+                        {{REGISTER_ERROR_MESSAGES.IN_USE_EMAIL}}
+                    </div>
+                    <div class="error-container" ng-show="regForm.email.$touched && regForm.email.$error.email">
+                        {{REGISTER_ERROR_MESSAGES.INVALID_EMAIL}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="confirmEmail" id="confirmEmail" class="register-text-control"
+                           placeholder="Confirm Email" match="email" ng-model="confirmEmail"/>
+                    <div class="error-container"
+                         ng-show="regForm.confirmEmail.$touched && regForm.confirmEmail.$error.match">
+                        {{REGISTER_ERROR_MESSAGES.NOT_MATCH_CONFIRM_EMAIL_EMAIL}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="{{passwordVisible ? 'text' :'password'}}" autocomplete="off" name="password"
+                               id="password" ng-focus="focusFlag = true"
+                               ng-blur="focusFlag = false" class="register-text-control" placeholder="Password"
+                               ng-model="password" validate-password required/>
+                        <div class="input-group-addon">
+                            <a href ng-click="togglePasswordVisibility()"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="error-container" ng-show="regForm.password.$touched && regForm.password.$invalid">
+                        {{REGISTER_ERROR_MESSAGES.INVALID_PASSWORD}}
+                    </div>
+                    <div class="input-validation-rules"
+                         ng-show="focusFlag || (regForm.password.$touched && regForm.password.$invalid)">
+                        <i ng-class="pwdValidLength"></i>
+                        <span>{{ REGISTER_ERROR_MESSAGES.MIN_LENGTH_NEW_PASSWORD }}</span>
+                        <br/>
+                        <i ng-class="pwdHasNumber"></i>
+                        <span>{{ REGISTER_ERROR_MESSAGES.REQUIRED_NUMERIC_IN_NEW_PASSWORD }}</span>
+                        <br/>
+                        <i ng-class="pwdHasUpperCase"></i>
+                        <span>{{ REGISTER_ERROR_MESSAGES.REQUIRED_UPPERCASE_IN_NEW_PASSWORD }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class=" separator-hr"/>
+        <div class="row">
+            <div class="col-sm-8 register-sub-header-font">At Intellivisit, we take privacy seriously.</div>
+            <div class="col-sm-8">You will use this e-mail address to login to your account. 
+                We will never share your information without your permission. 
+                Intellivisit is HIPAA compliant to ensure your information is safe and secure.</div>
+            <div class="col-sm-4 primary-button-area">
+                <button type="button" class="btn secondary-button" id="nextBtn" ng-click="goNext()">Next</button>
+            </div>
+        </div>
+    </div>
+</form>

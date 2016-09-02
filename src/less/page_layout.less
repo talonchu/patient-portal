@@ -1,0 +1,58 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    @media (max-width: @screen-md-max) {
+        background-size: auto, 100%;
+        background-position: center;
+    }
+}
+
+body .container-fluid {
+    height: 100%;
+}
+
+.empty-header {
+    @media (min-width: @screen-md-min) {
+        height: 20%;
+    }
+}
+
+.default-content {
+    border: solid transparent;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 3%;
+}
+
+.header-text {
+    color: #fff;
+    text-align: center;
+    font-size: @font-size-base;
+    @media (min-width: @screen-md-min) {
+        font-size: @font-size-h2;
+    }
+    @media (min-width: @screen-xs-min) {
+        font-size: @font-size-extra-large;
+    }
+    padding-top: 5%;
+    padding-bottom: 3%;
+}
+
+.footer-text {
+    .text-align-center;
+    color: #fff;
+    font-size: @font-size-h6;
+    @media (min-width: @screen-md-min) {
+        font-size: @font-size-h4;
+    }
+    @media (min-width: @screen-xs-min) {
+        font-size: @font-size-h5;
+    }
+    padding-top: 3%;
+}

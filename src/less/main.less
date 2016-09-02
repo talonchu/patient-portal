@@ -1,0 +1,58 @@
+/**
+ * This is the main application stylesheet. It should include or import all
+ * stylesheets used throughout the application as this is the only stylesheet in
+ * the Grunt configuration that is automatically processed.
+ */
+/**
+ * First, we include the Twitter Bootstrap LESS files. Only the ones used in the
+ * project should be imported as the rest are just wasting space.
+ */
+@import '../../vendor/bootstrap/less/bootstrap.less';
+/**
+ * Font face definition.
+ */
+@import 'font.less';
+/**
+ * This is our main variables file. We must include it last so we can overwrite any variable
+ * definitions in our imported stylesheets.
+ */
+@import 'variables.less';
+/**
+ * Customized css classes.
+ */
+@import 'global.less';
+@import 'form.less';
+@import 'msg.less';
+@import 'positon.less';
+@import 'header.less';
+@import 'page_layout.less';
+/**
+ * Now that all app-wide styles have been applied, we can load the styles for
+ * all the submodules and components we are using.
+ *
+ * TODO: In a later version of this boilerplate, I'd like to automate this.
+ */
+@import '../app/dashboard/dashboard.less';
+@import '../app/dashboard/profile/profile.less';
+@import '../app/dashboard/profile/contact-preferences/contactPreferences.less';
+@import '../app/dashboard/profile/account-information/accountInformation.less';
+@import '../app/dashboard/profile/primary-profile/primaryProfile.less';
+@import '../app/dashboard/profile/pharmacies/pharmacies.less';
+@import '../app/dashboard/profile/payment-methods/paymentMethods.less';
+@import '../app/login/login.less';
+@import '../app/register/register.less';
+@import '../app/forgot-password/forgot-password.less';
+@import '../app/postLogin/noCustomerMatchError/noCustomerMatchError.less';
+@import '../app/postLogin/phoneDetails/phoneDetails.less';
+@import '../app/success/registerSuccess.less';
+@import '../app/postLogin/allAccess/allAccess.less';
+@import '../app/postLogin/updatePatientProfile/updatePatientProfile.less';
+
+@import '../common/dialog/system_error.less';
+@import '../common/mobileVerificationModal/mobileVerification.less';
+
+
+/* Fix angular-bootstrap incompatibility */
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}

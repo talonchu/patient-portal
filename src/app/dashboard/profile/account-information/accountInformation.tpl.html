@@ -1,0 +1,110 @@
+<form class="account-information" name="accountInformationForm" ng-submit="save()" novalidate>
+    <div class="row">
+        <div class="col-xs-12">
+            <uib-alert ng-show="currentAlert !== undefiend" type="{{currentAlert.type}}">
+                <i ng-class="ALERT_ICONS[currentAlert.type].class"
+                   ng-style="{color: ALERT_ICONS[currentAlert.type].color}"></i>
+                <span ng-bind-html="currentAlert.message"></span>
+            </uib-alert>
+        </div>
+        <div class="col-xs-12 col-md-11 col-lg-9">
+            <div class="form-group">
+                <input type="username" class="form-control" name="username" id="username" ng-model="username" disabled="disabled" placeholder="Login ID">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" id="name" ng-model="name" disabled="disabled" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="dob" id="dob" disabled="disabled" placeholder="Date of Birth" value="{{dob | date: 'MM/dd/yyyy'}}">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="homePhone" id="homePhone" ng-model="homePhone" validate-phone maxlength="12" placeholder="Home Phone Number">
+                <div class="error-container"
+                     ng-show="accountInformationForm.homePhone.$touched && accountInformationForm.homePhone.$error.phone">
+                     {{ACCOUNT_INFORMATION_ERROR_MESSAGES.PHONE_NUMBER_FORMAT}}
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="red-star">*</span>
+                <input type="text" class="form-control" name="mobilePhone" id="mobilePhone" ng-model="mobilePhone" required validate-phone maxlength="12" placeholder="Mobile Phone Number">
+
+                <span ng-show="isMobileVerified && mobilePhone == currentMobilePhone"
+                      class="verification-status"><strong>Verified</strong></span>
+                <span
+                        ng-show="!isMobileVerified && mobilePhone != undefined && mobilePhone!='' && mobilePhone == currentMobilePhone"
+                      class="verification-status"><a
+                        ng-click="open()"
+                        class="cursor-pointer">
+                    Verify Number</a></span>
+
+                <div class="error-container"
+                     ng-show="accountInformationForm.mobilePhone.$touched && accountInformationForm.mobilePhone.$error.phone">
+                     {{ACCOUNT_INFORMATION_ERROR_MESSAGES.PHONE_NUMBER_FORMAT}}
+                </div>
+                <div class="error-container"
+                     ng-show="accountInformationForm.mobilePhone.$touched && accountInformationForm.mobilePhone.$error.required">
+                     {{ACCOUNT_INFORMATION_ERROR_MESSAGES.REQUIRED_MOBILE_PHONE}}
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="businessPhone" id="businessPhone" ng-model="businessPhone" validate-phone maxlength="12" placeholder="Business Phone Number">
+
+                <div class="error-container"
+                     ng-show="accountInformationForm.businessPhone.$touched && accountInformationForm.businessPhone.$error.phone">
+                     {{ACCOUNT_INFORMATION_ERROR_MESSAGES.PHONE_NUMBER_FORMAT}}
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="red-star">*</span>
+                <input type="text" class="form-control" name="address1" id="address1" ng-model="address1" required placeholder="Address">
+                <div class="error-container"
+                     ng-show="accountInformationForm.address1.$touched && accountInformationForm.address1.$error.required">
+                     {{ACCOUNT_INFORMATION_ERROR_MESSAGES.REQUIRED_ADDRESS1}}
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="address2" id="address2" ng-model="address2" placeholder="Address 2">
+            </div>
+            <div class="form-group">
+                <span class="red-star">*</span>
+                <input type="text" class="form-control" name="city" id="city" ng-model="city" required placeholder="City">
+                <div class="error-container"
+                     ng-show="accountInformationForm.city.$touched && accountInformationForm.city.$error.required">
+                     {{ACCOUNT_INFORMATION_ERROR_MESSAGES.REQUIRED_CITY}}
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="red-star">*</span>
+                <input type="text" class="form-control" placeholder="Zip Code" ng-model="zipCode"
+                       ng-pattern="/^[0-9]{5}$/" maxlength="5" minlength="5" name="zipCode" id="zipCode"
+                       required numbers-only validate-zip-code/>
+
+                <div class="error-container"
+                     ng-show="accountInformationForm.zipCode.$touched && accountInformationForm.zipCode.$error.required">{{ACCOUNT_INFORMATION_ERROR_MESSAGES.REQUIRED_ZIPCODE}}
+                </div>
+                <div class="error-container"
+                     ng-show="accountInformationForm.zipCode.$touched && accountInformationForm.zipCode.$error.pattern">{{ACCOUNT_INFORMATION_ERROR_MESSAGES.ZIPCODE_FORMAT}}
+                </div>
+                <div class="error-container"
+                     ng-show="accountInformationForm.zipCode.$touched && accountInformationForm.zipCode.$error.invalidUSZip">{{ACCOUNT_INFORMATION_ERROR_MESSAGES.ZIPCODE_INVALID}}
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="red-star">*</span>
+                <select class="form-control" name="state" id="state" ng-model="state" required>
+                    <option value="" disabled selected>State ...</option>
+                    <option ng-repeat="(key, value) in STATES_IN_USA" value="{{key}}">{{value}}</option>
+                </select>
+                <div class="error-container"
+                     ng-show="accountInformationForm.state.$touched && accountInformationForm.state.$error.required">
+                     {{ACCOUNT_INFORMATION_ERROR_MESSAGES.REQUIRED_STATE}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-4 pull-right">
+                    <button type="submit" class="btn primary-button" ng-disabled="isSaving">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

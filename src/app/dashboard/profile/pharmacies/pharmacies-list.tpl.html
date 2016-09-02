@@ -1,0 +1,61 @@
+
+<form id="pharmaciesForm" name="pharmaciesForm" ng-submit="save()" novalidate>
+	<div class="row">
+		<div class="col-xs-12">
+			<uib-alert ng-show="currentAlert !== undefiend" type="{{currentAlert.type}}"> <i
+				ng-class="ALERT_ICONS[currentAlert.type].class" ng-style="{color: ALERT_ICONS[currentAlert.type].color}"></i> <span
+				ng-bind-html="currentAlert.message"></span> </uib-alert>
+		</div>
+	</div>
+	<div
+		ng-class="currentPharmaciesList.length > 2?'row pharmacies-list-row pharmacies-row pharmacies-list-overflow-y-scroll':'row pharmacies-list-row pharmacies-row'">
+		<div class="col-xs-6 col-md-6 col-lg-4 pharmacies-col" ng-repeat="pharmacy in currentPharmaciesList">
+			<div class="pharmacies-card">
+				<div class="row pharmacies-row">
+					<div class="col-xs-3 pharmacies-col text-align-center">
+						<i class="fa fa-asterisk" ng-show="pharmacy.isDefault"></i>
+					</div>
+					<div class="col-xs-6 pharmacies-col text-align-center">
+						<img src="assets/image/light_lock.png" class="pharmacy-lock-size" />
+					</div>
+				</div>
+				<div class="text-align-center pharmacies-card-name">{{pharmacy.storeName}}</div>
+				<div class="pharmacies-card-address">
+					<div class="text-align-center">{{pharmacy.address1}} {{pharmacy.address2}}</div>
+					<div class="text-align-center">{{pharmacy.city}}, {{pharmacy.state}} {{pharmacy.zipCode}}</div>
+				</div>
+				<div class="row pharmacies-row" ng-if="pharmacy.isDefault">
+					<div class="col-xs-12 pharmacies-col">
+						<button type="button" class="primary-button card-button" ng-click="deletePharmacy(pharmacy)">Delete</button>
+					</div>
+				</div>
+				<div class="row pharmacies-row" ng-if="!pharmacy.isDefault">
+					<div class="col-xs-6 pharmacies-col pharmacies-left-button">
+						<button type="button" class="primary-button card-button" ng-click="makeDefault(pharmacy)">Make Default</button>
+					</div>
+					<div class="col-xs-6 pharmacies-col pharmacies-right-button">
+						<button type="button" class="primary-button card-button" ng-click="deletePharmacy(pharmacy)">Delete</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-xs-6 col-md-6 col-lg-4 pharmacies-col">
+			<div class="pharmacies-card cursor-pointer" ng-click="pharmacyAdd()">
+				<div class="row pharmacies-row">
+					<div class="col-xs-12 pharmacies-col text-align-center">
+						<div class="circle-blue text-align-center">
+							<span class="plus-in-circle">+</span>
+						</div>
+					</div>
+					<div class="col-xs-8 pharmacies-col"></div>
+				</div>
+				<div class="text-align-center pharmacies-card-name">Add a Pharmacy</div>
+				<div class="pharmacies-card-address">
+					<div class="text-align-center">Click here</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</form>

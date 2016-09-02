@@ -1,0 +1,79 @@
+<form action="" method="POST" role="form" name="regForm">
+    <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 default-content">
+        <h3 class="register-sub-header">Protect your account.</h3>
+        <hr class="separator-hr"/>
+        <div class="register-sub-header-font">Step 2 of 2: Set a few security questions for safe password retrieval.
+        </div>
+        <div class="form-group">
+            <select name="question1" id="question1" class="primary-select form-control" required="required"
+                    ng-model="question1" validate-question>
+                <option class="register-first-option" value="" disabled selected>Select a Question
+                </option>
+                <option ng-repeat="(key, value) in questionSet1" value="{{key}}">{{value}}</option>
+            </select> <br/>
+                    <span class="error-container"
+                          ng-show="regForm.question1.$touched && regForm.question1.$error.required">{{REGISTER_ERROR_MESSAGES.REQUIRED_QUESTION1}}</span>
+                    <textarea rows="3" class="textarea-font form-control" ng-model="answer1"
+                              placeholder="Question 1 Answer" name="answer1" required
+                              validate-answer="answer2"></textarea>
+                    <span class=" error-container"
+                          ng-show="regForm.answer1.$touched && regForm.answer1.$error.required">{{REGISTER_ERROR_MESSAGES.REQUIRED_ANSWER1}}</span>
+        </div>
+        <div class="form-group">
+            <select name="question2" id="question2" class="primary-select form-control" required="required"
+                    ng-model="question2" validate-question>
+                <option class="register-first-option" value="" disabled selected>Select a Question
+                </option>
+                <option ng-repeat="(key, value) in questionSet2" value="{{key}}">{{value}}</option>
+            </select><br/>
+                    <span class="error-container"
+                          ng-show="regForm.question2.$touched && regForm.question2.$error.required">{{REGISTER_ERROR_MESSAGES.REQUIRED_QUESTION2}}</span>
+                    <textarea rows="3" class="textarea-font form-control" ng-model="answer2"
+                              placeholder="Question 2 Answer" name="answer2" required
+                              validate-answer="answer1"></textarea>
+            <span class="error-container" ng-show="regForm.answer2.$touched && regForm.answer2.$error.required">{{REGISTER_ERROR_MESSAGES.REQUIRED_ANSWER2}}</span>
+                    <span class="error-container"
+                          ng-show="regForm.question2.$touched && regForm.question2.$error.sameQuestion">{{REGISTER_ERROR_MESSAGES.SAME_QUESTIONS}}</span>
+                    <span class="error-container"
+                          ng-show="regForm.answer2.$touched && regForm.answer2.$error.sameAnswer">{{REGISTER_ERROR_MESSAGES.SAME_ANSWERS}}</span>
+        </div>
+        <div>What are the last four digits of your Social Security Number?</div>
+        <div class="form-group">
+            <input type="text" class="social-digit-text-box" placeholder="XXX" disabled/>
+            <span class="append-label">/</span>
+            <input type="text" class="social-digit-text-box" placeholder="XX" disabled/>
+            <span class="append-label">/</span>
+            <input type="text" class="social-digit-text-box" placeholder="XXXX" required id="last4Ssn"
+                   ng-model="last4Ssn" name="last4Ssn" ng-pattern="/^[0-9]{4}$/" minlength="4" maxlength="4"
+                   numbers-only/>
+            <div class="error-container" ng-show="regForm.last4Ssn.$touched && regForm.last4Ssn.$error.pattern">
+                {{REGISTER_ERROR_MESSAGES.INVALID_SOCIAL_SECURITY_NUMBER}}
+            </div>
+            <div class="error-container"
+                 ng-show="regForm.last4Ssn.$touched && regForm.last4Ssn.$error.required">
+                {{REGISTER_ERROR_MESSAGES.REQUIRED_SOCIAL_SECURITY_NUMBER}}
+            </div>
+        </div>
+
+        <hr class="separator-hr"/>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="float-left">
+                    <input type="checkbox" id="agreeToTC" id="agreeToTC" ng-model="agreeToTC" value="true"/>
+                    <label for="agreeToTC"></label>
+                </div>
+                <div class="font-medium">
+                    <font>I have read and agree to the Intellivisit <a class="hyperlink"
+                                                                         href="/intellivisit/TermsOfUse.html"
+                                                                         target="_blank" id="termsAndCondition">terms and conditions</a>.
+                    </font>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 primary-button-area">
+                <button type="button" class="btn primary-button" ng-click="submit()" id="resisterBtn"
+                        ng-disabled="!agreeToTC">Register Now
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

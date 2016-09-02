@@ -1,0 +1,83 @@
+<form id="primaryProfileForm" name="primaryProfileForm" ng-submit="save()" novalidate>
+	<div class="row">
+		<div class="col-xs-12 col-md-11 col-lg-9">
+            <uib-alert ng-show="currentAlert !== undefiend" type="{{currentAlert.type}}">
+                <i ng-class="currentAlert.style.class"
+                   ng-style="{color: currentAlert.style.color}"></i>
+                <span ng-bind-html="currentAlert.message"></span>
+            </uib-alert>
+		</div>
+		<div class="col-xs-12 col-md-11 col-lg-9">
+			<div class="form-group">
+				<input type="text" class="form-control" name="fullName" id="fullName" ng-model="fullName" disabled="disabled"
+					placeholder="John Smith">
+			</div>
+			<div class="form-group">
+				<span class="red-star">*</span>
+				<select name="martialStatus" id="martialStatus" class="primary-select form-control" required="required"
+					ng-model="martialStatus">
+					<option class="register-first-option" value="" disabled selected>-Select Martial Status-</option>
+					<option ng-repeat="(key, value) in martialStatusSet" value="{{key}}">{{value}}</option>
+				</select>
+				<div class="error-container"
+					ng-show="primaryProfileForm.martialStatus.$touched && primaryProfileForm.martialStatus.$error.required">{{PRIMARY_PROFILE_ERROR_MESSAGES.REQUIRED_MARTIAL_STATUS}}</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<span class="red-star">*</span>
+					<select name="feet" id="feet" class="primary-select form-control" required="required" ng-model="feet">
+						<option class="register-first-option" value="" disabled selected>-Select Feet-</option>
+						<option ng-repeat="(key, value) in feetSet" value="{{key}}">{{value}}</option>
+					</select>
+					<div class="error-container" ng-show="primaryProfileForm.feet.$touched && primaryProfileForm.feet.$error.required">{{PRIMARY_PROFILE_ERROR_MESSAGES.REQUIRED_FEET}}</div>
+				</div>
+				<div class="form-group col-xs-6">
+					<span class="red-star">*</span>
+					<select name="inches" id="inches" class="primary-select form-control" required="required" ng-model="inches">
+						<option class="register-first-option" value="" disabled selected>-Select Inches-</option>
+						<option ng-repeat="(key, value) in inchesSet" value="{{key}}">{{value}}</option>
+					</select>
+					<div class="error-container" ng-show="primaryProfileForm.inches.$touched && primaryProfileForm.inches.$error.required">{{PRIMARY_PROFILE_ERROR_MESSAGES.REQUIRED_INCHES}}</div>
+
+				</div>
+			</div>
+			<div class="form-group">
+				<span class="red-star">*</span>
+				<input type="text" class="form-control" name="weightInLbs" id="weightInLbs" ng-model="weightInLbs"
+					numbers-only maxlength="3" placeholder="Weight in Lbs" required>
+				<div class="error-container"
+					ng-show="primaryProfileForm.weightInLbs.$touched && primaryProfileForm.weightInLbs.$error.required">{{PRIMARY_PROFILE_ERROR_MESSAGES.REQUIRED_WEIGHT_IN_LBS}}</div>
+				<div class="error-container"
+					ng-show="primaryProfileForm.weightInLbs.$touched && weightInLbs == undefined && primaryProfileForm.weightInLbs.$invalid && !primaryProfileForm.weightInLbs.$error.required">{{PRIMARY_PROFILE_ERROR_MESSAGES.INVALID_WEIGHT_IN_LBS}}</div>
+
+			</div>
+			<div class="form-group">
+				<span class="red-star">*</span>
+				<select name="gender" id="gender" class="primary-select form-control" required="required" ng-model="gender">
+					<option class="register-first-option" value="" disabled selected>-Select Gender-</option>
+					<option ng-repeat="(key, value) in genderSet" value="{{key}}">{{value}}</option>
+				</select>
+				<div class="error-container" ng-show="primaryProfileForm.gender.$touched && primaryProfileForm.gender.$error.required">{{PRIMARY_PROFILE_ERROR_MESSAGES.REQUIRED_GENDER}}</div>
+
+			</div>
+			<div class="form-group">
+				<select name="primaryEthnicity" id="primaryEthnicity" class="primary-select form-control" ng-model="primaryEthnicity">
+					<option class="register-first-option" value="" disabled selected>-Select Primary Ethnicity-</option>
+					<option ng-repeat="(key, value) in primaryEthnicitySet" value="{{key}}">{{value}}</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<select name="secondaryEthnicity" id="secondaryEthnicity" class="primary-select form-control" ng-model="secondaryEthnicity">
+					<option class="register-first-option" value="" disabled selected>-Select Secondary Ethnicity-</option>
+					<option ng-repeat="(key, value) in secondaryEthnicitySet" value="{{key}}">{{value}}</option>
+				</select>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-6 col-lg-4 pull-right">
+					<button type="submit" class="btn primary-button">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</form>

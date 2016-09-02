@@ -1,0 +1,38 @@
+<form action="" method="POST" role="form" name="allAccessForm">
+	<div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 default-content">
+		<div class="row">
+			<div class="col-xs-12">
+				<uib-alert ng-show="currentAlert !== undefiend" type="{{currentAlert.type}}">
+				<i ng-class="ALERT_ICONS[currentAlert.type].class" ng-style="{color: ALERT_ICONS[currentAlert.type].color}"></i> <span
+					ng-bind-html="currentAlert.message"></span></uib-alert>
+			</div>
+		</div>
+		<h2 class="all-access-sub-header">Confirm Your Selection</h2>
+		<hr class=" separator-hr" />
+		<div class="col-sm-12 all-access-sub-header-font">
+			Good choice! You are selecting {{selectedCustomerName}} to be your virtual care provider through Intellivisit.
+			Going forward, a team of nurses and doctors from this organization will receive and review your Intellivisits.
+			Before saving your choice, please review this organization's Terms & Conditions and Privacy Policies.
+		</div>
+		<div class="row col-xs-8 col-xs-offset-2 all-access-confirmCust">
+			<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+				<img ng-src="{{selectedCustomerLogoUrl}}" />
+			</div>
+			<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+				<div class="all-access-sub-header">{{selectedCustomerName}}</div>
+				<div class="all-access-sub-header">{{selectedCustomerCity}}, {{selectedCustomerState}}</div>
+				<div class="all-access-sub-header">{{selectedCustomerUrl}}</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<input type="checkbox" name="agreeConfirmTC" id="agreeConfirmTC" ng-model="agreeConfirmTC" id="agreeConfirmTC" required />
+			<label class="all-access-confirm-tc" for="agreeConfirmTC">I have reviewed and accept {{selectedCustomerName}}'s <a href="{{selectedCustomerTermsAndConditions}}"
+				target="_blank">Terms & Conditions</a> 
+			</label>
+		</div>
+		<div class="row">
+			<button type="button" class="btn secondary-button all-access-back-button" id="backBtn" ng-click="goBack()">Back</button>
+			<button type="button" class="btn secondary-button all-access-next-button" id="nextBtn" ng-click="goNext()">Next</button>
+		</div>
+	</div>
+</form>
